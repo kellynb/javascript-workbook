@@ -42,7 +42,7 @@ const currentTimeDate= () => {
   // Program runs when 1 of 2 things are true
   
   const oneTrueInputs = (inputA, inputB) => {
-    if ((inputA && !inputB) || (!inputA && inputB)) {
+    if ((inputA || inputB)) {
       return "One input is true...its running";
     } else {
       return;
