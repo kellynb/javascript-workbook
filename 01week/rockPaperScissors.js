@@ -17,29 +17,28 @@ const rl = readline.createInterface({
 function rockPaperScissors(hand1, hand2) {
   // global variables and an array
   const inputs = ['rock', 'paper', 'scissors'];
-
-  const Scrubhand1 =  hand1.toLowerCase();
-  const Scrubhand2 =  hand2.toLowerCase();
+  const scrubHand1 =  hand1.toLowerCase();
+  const scrubHand2 =  hand2.toLowerCase();
 
   let x = false;
   let y = false;
 
 // Check to see if user inputs are valid
   for (let i=0; i < inputs.length; i++) {
-    if (Scrubhand1 === inputs[i]) {
+    if (scrubHand1 === inputs[i]) {
         x = true;
       } 
-     if (Scrubhand2 === inputs[i]) {
+     if (scrubHand2 === inputs[i]) {
         y = true;
       }
     }
 // Outcomes of the game
     const WinState= () => {
-      if ((Scrubhand1 == inputs[0] || Scrubhand2 == inputs[0]) && (Scrubhand1 == inputs[1] || Scrubhand2 == inputs[1])) {
+      if ((scrubHand1 == inputs[0] || scrubHand2 == inputs[0]) && (scrubHand1 == inputs[1] || scrubHand2 == inputs[1])) {
         return "paper wins";
-      } else if ((Scrubhand1 == inputs[1] || Scrubhand2 == inputs[1]) && (Scrubhand1 == inputs[2] || Scrubhand2 == inputs[2]))  {
+      } else if ((scrubHand1 == inputs[1] || scrubHand2 == inputs[1]) && (scrubHand1 == inputs[2] || scrubHand2 == inputs[2]))  {
         return "scissors wins";
-      } else if ((Scrubhand1 == inputs[0] || Scrubhand2 == inputs[0]) && (Scrubhand1 == inputs[2] || Scrubhand2 == inputs[2])) {
+      } else if ((scrubHand1 == inputs[0] || scrubHand2 == inputs[0]) && (scrubHand1 == inputs[2] || scrubHand2 == inputs[2])) {
         return "rock wins";
       } else {
         return "its a tie";
@@ -48,8 +47,7 @@ function rockPaperScissors(hand1, hand2) {
 
     // Calls winState or informs users of wrong inputs
   if (x == true && y == true) {
-    console.log(WinState());
-    return;
+    return (WinState());
     } else {
     return "Invalid Inputs";
     }
