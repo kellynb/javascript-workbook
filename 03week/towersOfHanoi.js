@@ -19,24 +19,97 @@ function printStacks() {
   console.log("c: " + stacks.c);
 }
 
-function movePiece() {
-  // Your code here
+// const validEntry = ['a', 'b', 'c'];
+// const currentLocation = stacks[startStack];
+// const endLocation = stacks[endStack];
+// const removedItem = currentLocation.pop();
 
-}
 
-function isLegal() {
-  // Your code here
 
-}
+// const isEntryValid = (startStack,endStack) => {
+//   return validEntry.includes(startStack) && validEntry.includes(endStack);
+// };
 
-function checkForWin() {
-  // Your code here
+// function movePiece() {
+//   endLocation.push(removedItem);
+//   return stacks;
+// }
 
-}
+// function isLegal() {
+//   const lastArrayItem = endLocation[endLocation.length - 1];
+//   if ((lastArrayItem > removedItem) || (endLocation.length < 1)) {
+//     return movePiece();
+//   } else {
+//     currentLocation.push(removedItem);
+//     console.log('Invalid Move');
+//     return stacks;
+//   }
+// }
+
+// const resetGame = () => {
+//   const moveArray = endLocation.splice(0,4);
+//   stacks['a'] = moveArray;
+// }
+
+// const checkForWin = (endStack) => {
+//   if (endStack == 'c'&& endLocation.length == 4) {
+//     console.log('Winner Winner Chicken Dinner')
+//     resetGame();
+//   } 
+// }
+
+
+
+
 
 function towersOfHanoi(startStack, endStack) {
-  // Your code here
+  const validEntry = ['a', 'b', 'c'];
+  const currentLocation = stacks[startStack];
+  const endLocation = stacks[endStack];
+  
+  
+  
+  const isEntryValid = (startStack,endStack) => {
+    return validEntry.includes(startStack) && validEntry.includes(endStack);
+  };
+  
+  
+  
+  function isLegal() {
+    const lastArrayItem = endLocation[endLocation.length - 1];
+    const removedItem = currentLocation.pop();
+    function movePiece() {
+      endLocation.push(removedItem);
+      return stacks;
+    }
 
+    if ((lastArrayItem > removedItem) || (endLocation.length < 1)) {
+      return movePiece();
+    } else {
+      currentLocation.push(removedItem);
+      console.log('Invalid Move');
+      return stacks;
+    }
+  }
+  
+  const resetGame = () => {
+    const moveArray = endLocation.splice(0,4);
+    stacks['a'] = moveArray;
+  }
+  
+  const checkForWin = (endStack) => {
+    if (endStack == 'c'&& endLocation.length == 4) {
+      console.log('Winner Winner Chicken Dinner')
+      resetGame();
+    } 
+  }
+  
+  if (isEntryValid(startStack,endStack)) {
+    isLegal();
+    } else {
+     console.log ('not valid entry'); 
+    } 
+  checkForWin(endStack);
 }
 
 function getPrompt() {
