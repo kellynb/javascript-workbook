@@ -49,18 +49,18 @@ let playerTurn = 'X';
 
 
 const changeBoard = (row,column) => {
-    if (board[row][column] == ' ') {
-      board[row].splice(column, 1, playerTurn);
-      return board;
-      } else {
-      console.log('Choose a vacant spot');
-      }
+  if (board[row][column] == ' ') {
+    board[row].splice(column, 1, playerTurn);
+    return board;
+    } else {
+    console.log('Choose a vacant spot');
+  }
 }
 
 const switchPlayers = () => {
   if (playerTurn == 'X') {
     return playerTurn = 'O';
-  } else {
+    } else {
     return playerTurn = 'X'
   }
 };
@@ -74,12 +74,20 @@ function printBoard() {
   console.log('2 ' + board[2].join(' | '));
 }
 
+const allXArray = (item) => {
+  return item.includes('X')
+};
+
+const allOArray = (item) => {
+  return item.includes('O')
+};
+
 function horizontalWin() {
-  if ((board[0][0] == 'X' && board[0][1] == 'X' && board[0][2] == 'X') || (board[0][0] == 'O' && board[0][1] == 'O' && board[0][2] == 'O'))   {
+  if (board[0].every(allXArray)  || board[0].every(allOArray))   {
     return true;
-  } else if ((board[1][0] == 'X' && board[1][1] == 'X' && board[1][2] == 'X') || (board[1][0] == 'O' && board[1][1] == 'O' && board[1][2] == 'O')) {
+  } else if (board[1].every(allXArray) || board[1].every(allOArray)) {
     return true;
-  } else if ((board[2][0] == 'X' && board[2][1] == 'X' && board[2][2] == 'X') || (board[2][0] == 'O' && board[2][1] == 'O' && board[2][2] == 'O')) {
+  } else if (board[2].every(allXArray) || board[2].every(allOArray)) {
     return true;
   }
 }
@@ -102,13 +110,13 @@ function diagonalWin() {
   }
 }
 
+const fullBoard  = (item) => {
+  return item.includes('X') || item.includes('O');
+}
+
 const tieGame = () => {
-  board.forEach(function(element) {
-    element.forEach(function(item) {
-      return item.includes('X') || item.includes('O');
-      })
-    })
-  }
+ return board[0].every(fullBoard) && board[1].every(fullBoard) && board[2].every(fullBoard);
+}
   
 
 function checkForWin() {
