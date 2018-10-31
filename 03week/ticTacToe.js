@@ -23,24 +23,83 @@ function printBoard() {
   console.log('2 ' + board[2].join(' | '));
 }
 
+const changeBoard = (row,column) => {
+  if (board[row][column] == ' ') {
+    board[row].splice(column, 1, playerTurn);
+    return board;
+    } else {
+    console.log('Choose a vacant spot');
+    }
+}
+
+const switchPlayers = () => {
+  if (playerTurn == 'X') {
+    return playerTurn = 'O';
+  } else {
+    return playerTurn = 'X'
+  }
+};
+
+const allXArray = (item) => {
+  return item.includes('X')
+};
+
+const allOArray = (item) => {
+  return item.includes('O')
+};
+
 function horizontalWin() {
-  // Your code here
+if (board[0].every(allXArray)  || board[0].every(allOArray))   {
+  return true;
+} else if (board[1].every(allXArray) || board[1].every(allOArray)) {
+  return true;
+} else if (board[2].every(allXArray) || board[2].every(allOArray)) {
+  return true;
+}
 }
 
 function verticalWin() {
-  // Your code here
+if ((board[0][0] == 'X' && board[1][0] == 'X' && board[2][0] == 'X') || (board[0][0] == 'O' && board[1][0] == 'O' && board[2][0] == 'O'))   {
+  return true;
+} else if ((board[0][1] == 'X' && board[1][1] == 'X' && board[2][1] == 'X') || (board[0][1] == 'O' && board[1][1] == 'O' && board[2][1] == 'O')) {
+  return true;
+} else if ((board[0][2] == 'X' && board[1][2] == 'X' && board[2][2] == 'X') || (board[0][2] == 'O' && board[1][2] == 'O' && board[2][2] == 'O')) {
+  return true;
+}
 }
 
 function diagonalWin() {
-  // Your code here
+if ((board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X') || (board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O'))   {
+  return true;
+} else if ((board[0][2] == 'X' && board[1][1] == 'X' && board[2][0] == 'X') || (board[0][2] == 'O' && board[1][1] == 'O' && board[2][0] == 'O')) {
+  return true;
 }
+}
+
+const fullBoard  = (item) => {
+return item.includes('X') || item.includes('O');
+}
+
+const tieGame = () => {
+return board[0].every(fullBoard) && board[1].every(fullBoard) && board[2].every(fullBoard);
+}
+
 
 function checkForWin() {
-  // Your code here
+return horizontalWin() || verticalWin() || diagonalWin();
 }
 
+
 function ticTacToe(row, column) {
-  // Your code here
+changeBoard (row, column);  
+
+if (checkForWin()) {
+  console.log(playerTurn + ' has won');
+  } else if (tieGame()) {
+  console.log('Its a Tie');
+  } else {
+  switchPlayers();
+  } 
 }
 
 function getPrompt() {
