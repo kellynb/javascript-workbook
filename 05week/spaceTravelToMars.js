@@ -9,7 +9,60 @@ let jobTypes = {
   programmer: 'Any Ship!'
 };
 
-// Your code here
+class CrewMember {
+  constructor(name, job, specialSkill) {
+    this.name = name;
+    this.job = job;
+    this.specialSkill = specialSkill;
+    this.ship = null;
+  }
+
+
+  enterShip=(ship)=>{
+    if (ship.type == jobTypes[this.job] || this.job == 'programmer') {
+      this.ship = ship.name;
+      ship.crew.push(this.job);
+    }
+  }
+}
+
+// ship class
+
+class Ship {
+  constructor(name, type, ability) {
+    this.name = name;
+    this.type = type;
+    this.ability = ability;
+    this.crew = [];
+  }
+
+  missionStatement = () => {
+    if(this.crew.includes('pilot')){
+      console.log("Ascend into low orbit")
+    } else if (this.crew.includes('commander')) {
+      console.log("Interplanetary Space Travel")
+    } else if (this.crew.includes('mechanic')) {
+      console.log('Fixing the ship')
+    } else {
+    console.log("Can't perform a mission yet");
+    }
+  }
+}
+
+const crewMember1 = new CrewMember('Jasmine', 'pilot', 'eating jellybeans');
+const ship1 = new Ship ('USS Harper', 'MAV', 'Ascend into low orbit');
+
+const hermes = new Ship('Hermes', 'Main Ship', 'Interplanetary Space Travel');
+const crewMember2 = new CrewMember('Commander Lewis', 'commander', 'geology');
+
+crewMember1.enterShip(ship1);
+ship1.missionStatement();
+console.log(ship1);
+console.log(crewMember1);
+
+crewMember2.enterShip(hermes);
+console.log(hermes);
+console.log(crewMember2);
 
 //tests
 if (typeof describe === 'function'){
