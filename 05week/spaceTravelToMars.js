@@ -8,7 +8,7 @@ let jobTypes = {
   commander: 'Main Ship',
   programmer: 'Any Ship!'
 };
-
+// class crewMember
 class CrewMember {
   constructor(name, job, specialSkill) {
     this.name = name;
@@ -50,14 +50,14 @@ class Ship {
 }
 
 const crewMember1 = new CrewMember('Jasmine', 'pilot', 'eating jellybeans');
-const ship1 = new Ship ('USS Harper', 'MAV', 'Ascend into low orbit');
+const mav = new Ship ('Mars Ascent Vehicle', 'MAV', 'Ascend into low orbit');
 
 const hermes = new Ship('Hermes', 'Main Ship', 'Interplanetary Space Travel');
 const crewMember2 = new CrewMember('Commander Lewis', 'commander', 'geology');
 
-crewMember1.enterShip(ship1);
+crewMember1.enterShip(mav);
 ship1.missionStatement();
-console.log(ship1);
+console.log(mav);
 console.log(crewMember1);
 
 crewMember2.enterShip(hermes);
