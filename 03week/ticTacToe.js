@@ -23,22 +23,22 @@ function printBoard() {
   console.log('2 ' + board[2].join(' | '));
 }
 
-const changeBoard = (row,column) => {
-  if (board[row][column] == ' ') {
-    board[row].splice(column, 1, playerTurn);
-    return board;
-    } else {
-    console.log('Choose a vacant spot');
-    }
-}
-
 const switchPlayers = () => {
   if (playerTurn == 'X') {
     return playerTurn = 'O';
   } else {
     return playerTurn = 'X'
   }
-};
+}
+
+const changeBoard = (row,column) => {
+  if (board[row][column] == ' ') {
+    board[row].splice(column, 1, playerTurn);
+    return board;
+    } else {
+    return console.log('Choose a vacant spot');
+    }
+}
 
 const allXArray = (item) => {
   return item.includes('X')
@@ -81,8 +81,11 @@ return item.includes('X') || item.includes('O');
 }
 
 const tieGame = () => {
-return board[0].every(fullBoard) && board[1].every(fullBoard) && board[2].every(fullBoard);
+  if (board[0].every(fullBoard) && board[1].every(fullBoard) && board[2].every(fullBoard)) {
+    return console.log('its a tie');
+  }
 }
+
 
 
 function checkForWin() {
@@ -98,8 +101,9 @@ if (checkForWin()) {
   } else if (tieGame()) {
   console.log('Its a Tie');
   } else {
-  switchPlayers();
+    tieGame(); 
   } 
+
 }
 
 function getPrompt() {
