@@ -8,13 +8,23 @@ const rl = readline.createInterface({
 });
 
 
-function Checker() {
-  // Your code here
+class Checker {
+
+  constructor(color) {
+    if (color == 'white') {
+      this.symbol = String.fromCharCode(0x125CB);
+    } else {
+      this.symbol = String.fromCharCode(0x125CF);
+    }
+  }
+  
+
 }
 
 class Board {
   constructor() {
     this.grid = []
+    this.checkers = [];
   }
   // method that creates an 8x8 array, filled with null values
   createGrid() {
@@ -27,6 +37,7 @@ class Board {
       }
     }
   }
+
   viewGrid() {
     // add our column numbers
     let string = "  0 1 2 3 4 5 6 7\n";
@@ -38,7 +49,7 @@ class Board {
         // if the location is "truthy" (contains a checker piece, in this case)
         if (this.grid[row][column]) {
           // push the symbol of the check in that location into the array
-          rowOfCheckers.push(this.grid[row][column].symbol);
+          rowOfCheckers.push(this.grid[row][column]);
         } else {
           // just push in a blank space
           rowOfCheckers.push(' ');
@@ -52,7 +63,64 @@ class Board {
     console.log(string);
   }
 
-  // Your code here
+  createChecker() {
+    const checker1 = new Checker('white');
+    const checker2 = new Checker('black');
+
+
+    // print white checker
+    this.grid.forEach((arr,index) => {
+      if ((index % 2 == 0) && index <3 ) {
+         arr.forEach((arr2,column) => {
+           if (column % 2 == 0) {
+             arr.splice(column, 1, checker1.symbol);
+             this.checkers.push(checker1.symbol);
+           }
+         })
+        } else if ((index % 2 == 1) && index <3) {
+          arr.forEach((arr2, column) => {
+           if (column % 2 == 1) {
+             arr.splice(column, 1, checker1.symbol);
+             this.checkers.push(checker1.symbol);
+           }
+         })
+        } 
+     })
+    // print black checker
+    this.grid.forEach((arr,index) => {
+       if ((index % 2 == 0) && index > 4 ) {
+          arr.forEach((arr2, column) => {
+            if (column % 2 == 0) {
+              arr.splice(column, 1, checker2.symbol);
+              this.checkers.push(checker2.symbol);
+            }
+          })
+         } else if ((index % 2 == 1) && index > 4) {
+           arr.forEach((arr2, column) => {
+            if (column % 2 == 1) {
+              arr.splice(column, 1, checker2.symbol);
+              this.checkers.push(checker2.symbol);
+            }
+          })
+         } 
+      })
+  }
+  
+  selectChecker (row,column) {
+    return this.grid[row][column];
+  }
+
+  killChecker (position) {
+    console.log(position);
+    const killSpot = position.split('');
+    const killSpotNumArr = killSpot.map(Number);
+    const checkerDies = this.selectChecker(killSpotNumArr[0],(killSpotNumArr[1]));
+    const removeCheckerArrSpot = this.checkers.indexOf(checkerDies);
+    this.checkers.splice(removeCheckerArrSpot, 1);
+    this.grid[killSpotNumArr[0]][killSpotNumArr[1]] = null;
+    console.log(this.checkers.length);
+  }
+
 }
 
 class Game {
@@ -61,6 +129,29 @@ class Game {
   }
   start() {
     this.board.createGrid();
+    this.board.createChecker();
+  }
+
+  moveChecker (start, end) {
+    const startArr = start.split('');
+    const startArrNum = startArr.map(Number);
+    const endArr = end.split('');
+    const endArrNum = endArr.map(Number);
+    const checker = this.board.selectChecker(startArrNum[0],startArrNum[1]);
+    this.board.grid[startArrNum[0]][startArrNum[1]] = null;
+    this.board.grid[endArrNum[0]][endArrNum[1]] = checker;
+    
+
+    if (Math.abs(startArrNum[0] - endArrNum[0]) == 2) {
+      const killPosition = (start,end) => {
+        const startKill = parseInt(start);
+        const endKill = parseInt(end);
+        const halfpoint = (startKill + endKill) / 2;
+        return halfpoint.toString();
+      }
+      this.board.killChecker(killPosition(start,end));
+    }
+    
   }
 }
 
