@@ -23,6 +23,10 @@ function printBoard() {
   console.log('2 ' + board[2].join(' | '));
 }
 
+const isMoveValid = (row,column) => {
+  return board[row][column] == ' ';
+}
+
 const switchPlayers = () => {
   if (playerTurn == 'X') {
     return playerTurn = 'O';
@@ -32,78 +36,89 @@ const switchPlayers = () => {
 }
 
 const changeBoard = (row,column) => {
-  if (board[row][column] == ' ') {
-    board[row].splice(column, 1, playerTurn);
-    return board;
-    } else {
-    return console.log('Choose a vacant spot');
-    }
+  board[row].splice(column, 1, playerTurn);
+  return board;
 }
 
-const allXArray = (item) => {
+const xValues = (item) => {
   return item.includes('X')
 };
 
-const allOArray = (item) => {
+const oValues = (item) => {
   return item.includes('O')
 };
 
 function horizontalWin() {
-if (board[0].every(allXArray)  || board[0].every(allOArray))   {
-  return true;
-} else if (board[1].every(allXArray) || board[1].every(allOArray)) {
-  return true;
-} else if (board[2].every(allXArray) || board[2].every(allOArray)) {
-  return true;
-}
-}
-
-function verticalWin() {
-if ((board[0][0] == 'X' && board[1][0] == 'X' && board[2][0] == 'X') || (board[0][0] == 'O' && board[1][0] == 'O' && board[2][0] == 'O'))   {
-  return true;
-} else if ((board[0][1] == 'X' && board[1][1] == 'X' && board[2][1] == 'X') || (board[0][1] == 'O' && board[1][1] == 'O' && board[2][1] == 'O')) {
-  return true;
-} else if ((board[0][2] == 'X' && board[1][2] == 'X' && board[2][2] == 'X') || (board[0][2] == 'O' && board[1][2] == 'O' && board[2][2] == 'O')) {
-  return true;
-}
-}
-
-function diagonalWin() {
-if ((board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X') || (board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O'))   {
-  return true;
-} else if ((board[0][2] == 'X' && board[1][1] == 'X' && board[2][0] == 'X') || (board[0][2] == 'O' && board[1][1] == 'O' && board[2][0] == 'O')) {
-  return true;
-}
-}
-
-const fullBoard  = (item) => {
-return item.includes('X') || item.includes('O');
-}
-
-const tieGame = () => {
-  if (board[0].every(fullBoard) && board[1].every(fullBoard) && board[2].every(fullBoard)) {
-    return console.log('its a tie');
+  if (board[0].every(xValues)  || board[0].every(oValues))   {
+    return true;
+  } else if (board[1].every(xValues) || board[1].every(oValues)) {
+    return true;
+  } else if (board[2].every(xValues) || board[2].every(oValues)) {
+    return true;
   }
 }
 
+function verticalWin() {
+  if ((board[0][0] == 'X' && board[1][0] == 'X' && board[2][0] == 'X') || (board[0][0] == 'O' && board[1][0] == 'O' && board[2][0] == 'O'))   {
+    return true;
+  } else if ((board[0][1] == 'X' && board[1][1] == 'X' && board[2][1] == 'X') || (board[0][1] == 'O' && board[1][1] == 'O' && board[2][1] == 'O')) {
+    return true;
+  } else if ((board[0][2] == 'X' && board[1][2] == 'X' && board[2][2] == 'X') || (board[0][2] == 'O' && board[1][2] == 'O' && board[2][2] == 'O')) {
+    return true;
+  }
+}
 
+function diagonalWin() {
+  if ((board[0][0] == 'X' && board[1][1] == 'X' && board[2][2] == 'X') || (board[0][0] == 'O' && board[1][1] == 'O' && board[2][2] == 'O'))   {
+    return true;
+  } else if ((board[0][2] == 'X' && board[1][1] == 'X' && board[2][0] == 'X') || (board[0][2] == 'O' && board[1][1] == 'O' && board[2][0] == 'O')) {
+    return true;
+  }
+}
 
-function checkForWin() {
-return horizontalWin() || verticalWin() || diagonalWin();
+const fullBoard  = (item) => {
+  return item.includes('X') || item.includes('O');
+}
+
+const tieGame = () => {
+  return board[0].every(fullBoard) && board[1].every(fullBoard) && board[2].every(fullBoard)
 }
 
 
+function checkForWin() {
+  return horizontalWin() || verticalWin() || diagonalWin();
+}
+
+const resetGame = () => {
+  board.forEach((arr1, index) => {
+    arr1.forEach((element, index2) => {
+      element = ' ';
+      board[index][index2] = element;
+    })
+  })  
+ }
+
+
+
 function ticTacToe(row, column) {
-changeBoard (row, column);  
 
-if (checkForWin()) {
-  console.log(playerTurn + ' has won');
-  } else if (tieGame()) {
-  console.log('Its a Tie');
-  } else {
-    tieGame(); 
-  } 
-
+  if (isMoveValid(row,column)) {
+    if(changeBoard (row, column)) {
+      if (checkForWin()) {
+        console.log (playerTurn + ' has won');
+        resetGame();
+        switchPlayers();
+        } else if (tieGame()) {
+        console.log ('Its a tie');
+        resetGame();
+        switchPlayers();
+        } else {
+        switchPlayers();
+        }
+      } 
+    } else {
+    console.log('choose a vacant spot');
+  }
 }
 
 function getPrompt() {
