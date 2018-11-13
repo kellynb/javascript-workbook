@@ -15,44 +15,55 @@ const rl = readline.createInterface({
 
 
 function rockPaperScissors(hand1, hand2) {
-  // global variables and an array
-  const inputs = ['rock', 'paper', 'scissors'];
+  // array of acceptable inputs
+  const validInputs = ['rock', 'paper', 'scissors'];
 
-  const Scrubhand1 =  hand1.toLowerCase();
-  const Scrubhand2 =  hand2.toLowerCase();
+  // variables to hold hand inputs after trimmed and lowercased
+  const trimHand1 = hand1.trim();
+  const scrubHand1 = trimHand1.toLowerCase();
+  const trimHand2 = hand2.trim();
+  const scrubHand2 = trimHand2.toLowerCase();
 
-  let x = false;
-  let y = false;
+  // index of each input after input's have been trimmed and lowercased
+  const indexOfHand1 = validInputs.indexOf(scrubHand1);
+  const indexOfHand2 = validInputs.indexOf(scrubHand2);
 
 // Check to see if user inputs are valid
-  for (let i=0; i < inputs.length; i++) {
-    if (Scrubhand1 === inputs[i]) {
-        x = true;
-      } 
-     if (Scrubhand2 === inputs[i]) {
-        y = true;
-      }
+    const isHand1Valid = (indexOfHand1) => {
+      return indexOfHand1 !== -1;
     }
-// Outcomes of the game
-    const WinState= () => {
-      if ((Scrubhand1 == inputs[0] || Scrubhand2 == inputs[0]) && (Scrubhand1 == inputs[1] || Scrubhand2 == inputs[1])) {
-        return "paper wins";
-      } else if ((Scrubhand1 == inputs[1] || Scrubhand2 == inputs[1]) && (Scrubhand1 == inputs[2] || Scrubhand2 == inputs[2]))  {
-        return "scissors wins";
-      } else if ((Scrubhand1 == inputs[0] || Scrubhand2 == inputs[0]) && (Scrubhand1 == inputs[2] || Scrubhand2 == inputs[2])) {
-        return "rock wins";
-      } else {
-        return "its a tie";
-      }
+  
+    const isHand2Valid = (indexOfHand2) => {
+      return indexOfHand2 !== -1;
     }
 
-    // Calls winState or informs users of wrong inputs
-  if (x == true && y == true) {
-    console.log(WinState());
-    return;
-    } else {
-    return "Invalid Inputs";
+// check for winning plays for Hand1 and Hand 2
+    const winStateforHand1 = (indexOfHand1, indexOfHand2) => {
+      return (indexOfHand1 == 0 && indexOfHand2 == 2) || (indexOfHand1 == 1 && indexOfHand2 == 0) || (indexOfHand1 == 2 && indexOfHand2 == 1);
     }
+
+    const winStateforHand2 = (indexOfHand1, indexOfHand2) => {
+      return (indexOfHand2 == 0 && indexOfHand1 == 2) || (indexOfHand2 == 1 && indexOfHand1 == 0) || (indexOfHand2 == 2 && indexOfHand1 == 1);
+    }
+// Gameplay
+    if (isHand1Valid(indexOfHand1)) {
+      if (isHand2Valid(indexOfHand2)) {
+        if (winStateforHand1(indexOfHand1,indexOfHand2)) {
+          return "Hand one wins!"
+        } else if (winStateforHand2(indexOfHand1, indexOfHand2)) {
+          return "Hand two wins!"
+        } else {
+          return "It's a tie!"
+        }
+      } else {
+        return "Hand 2 enter a valid input"
+      }
+     } else {
+      return "Hand 1 enter a valid input"
+     }
+   
+
+
 }
 
  
