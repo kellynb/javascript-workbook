@@ -18,7 +18,7 @@ class CrewMember {
   }
 
 
-  enterShip=(ship)=>{
+  enterShip(ship) {
     if (ship.type == jobTypes[this.job] || this.job == 'programmer') {
       this.ship = ship.name;
       ship.crew.push(this.job);
@@ -36,7 +36,7 @@ class Ship {
     this.crew = [];
   }
 
-  missionStatement = () => {
+  missionStatement () {
     if(this.crew.includes('pilot')){
       console.log("Ascend into low orbit")
     } else if (this.crew.includes('commander')) {
@@ -56,11 +56,12 @@ const hermes = new Ship('Hermes', 'Main Ship', 'Interplanetary Space Travel');
 const crewMember2 = new CrewMember('Commander Lewis', 'commander', 'geology');
 
 crewMember1.enterShip(mav);
-ship1.missionStatement();
+mav.missionStatement();
 console.log(mav);
 console.log(crewMember1);
 
 crewMember2.enterShip(hermes);
+hermes.missionStatement();
 console.log(hermes);
 console.log(crewMember2);
 
