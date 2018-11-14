@@ -23,48 +23,42 @@ const rl = readline.createInterface({
 // 2. firstLetterVowel (check if first letter is a vowel)
 // 3. checkforconst (for loop identifying all consonants until return vowel. chops up word into new word) 
 
+
+
+const vowels = ['a', 'e', 'i','o', 'u'];
+
 function pigLatin(word) {
-  const splitInput = word.split('');
-  const vowels = ['a', 'e', 'i', 'o', 'u'];
+  const trimedWord = word.trim();
+  const scrubWord = trimedWord.toLowerCase();
+  const evaluateWord = scrubWord.split('');
 
-  const checkValidity = (word) => {
-    if (typeof word === 'string') {
-      return true;
+  const firstLetterVowelWord = () => {
+    if (vowels.includes(evaluateWord[0])) {
+      return scrubWord + "yay";
     }
   }
 
-  const firstLetterVowel = (word) => {
-    for (let i = 0; i < vowels.length; i++) {
-      if (splitInput[0] == vowels[i]) {
-      return (word + "yay");
-      }
-    }
+  const noVowelInWord = evaluateWord.every((letter) => {
+    return !vowels.includes(letter);
+  })
+
+  const findFirstVowel = evaluateWord.find((vowel) => {
+    return vowels.includes(vowel);
+  })
+
+  const firstLetterConstWord = (findFirstVowel) => {
+    const vowelIndex = evaluateWord.indexOf(findFirstVowel);
+    const constOnly = evaluateWord.slice(0, vowelIndex);
+    const restOfWord = evaluateWord.slice(vowelIndex);
+    const fullNewWord = restOfWord.concat(constOnly);
+    return fullNewWord.join('') + 'ay';
+  };
+
+  if (noVowelInWord) {
+    return scrubWord + 'ay';
+  } else {
+    return firstLetterVowelWord() || firstLetterConstWord(findFirstVowel);
   }
-
-   
-    const checkForConst = () => {
-      for (let w = 0; w < splitInput.length; w++) {
-       for (let i = 0; i < vowels.length; i++) {
-          if (splitInput[w] !== vowels[i]) {
-            const removeConstant = splitInput.slice(w+1);
-            removeConstant.push(splitInput[w]);
-            return removeConstant.join('') + 'ay';
-          } 
-        }
-      }
-    }
-
-  if (checkValidity(word)) {
-    if(!firstLetterVowel(word)) {
-     checkForConst();
-      } else {
-      firstLetterVowel(word)
-      }
-    } else {
-    return "invalid move"
-  }
-
-  
 
 }
 
