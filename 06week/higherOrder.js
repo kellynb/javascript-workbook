@@ -3,24 +3,99 @@
 const assert = require('assert');
 
 function forEach(arr, callback) {
-  // Your code here
+  for (let i=0; i<arr.length; i++) {
+    const count = callback(i);
+    console.log(count);
+  }
 }
+  
+  const diffArr =["Katie","Christ","Wilson","Kellyn","Bj","Birdman"];
+  const newForEach = forEach(diffArr, (item) => {
+    return item+1;
+  });
+
+  console.log(newForEach);
 
 function map(arr, callback) {
-  // Your code here
+    const newArr = [];
+    for(let i = 0 ; i< arr.length ; i++ ){
+      const formattedItem=callback(arr[i])
+      newArr.push(formattedItem)
+    }
+    return newArr
 }
+
+const nameArr = ["Katie","Christ","Wilson","Kellyn","Bj","Birdman"];  
+const nameArrUpperCase = map(nameArr, function(str1) {return str1.toLowerCase();})
+console.log(nameArrUpperCase);
+
 
 function filter(arr, callback) {
-  // Your code here
+  const newArr = [];
+  for(let i=0; i<arr.length; i++) {
+    const newArrItem = callback(arr[i]);
+    if (newArrItem) {
+    newArr.push(arr[i]);
+    }
+  }
+  return newArr;
 }
+
+const manyNumbers = [1, 3, 6, 8, 11, 18];
+
+const isDivisibleByTwo = filter(manyNumbers, (number) => {
+  return number % 2 === 0;
+});
+
+console.log(isDivisibleByTwo);
 
 function some(arr, callback) {
-  // Your code here
+  let count = 0;
+
+  for (let i=0; i<arr.length; i++) {
+    const isItemEven = callback(arr[i]);
+    if (isItemEven) {
+      count ++;
+      return true;
+    }
+  }
+
+  if (count == 0) {
+    return false;
+  }
+
 }
 
+const arrNums = [12, 51, 9, 11, 25, 31];
+const areNumsEven = some(arrNums, numbers => {
+  return numbers %2 === 0;
+})
+
+console.log(areNumsEven);
+
 function every(arr, callback) {
-  // Your code here
+  let count = 0;
+
+  for (let i=0; i<arr.length; i++) {
+    const isItemEven = callback(arr[i]);
+    if (isItemEven) {
+      count ++;
+    } else {
+      return false;
+    }
+  }
+
+  return count === arr.length;
+
 }
+
+const everyNums = [12, 50, 90, 110, 26, 32];
+
+const areAllNumsEven = every(everyNums, nums => {
+  return nums %2 === 0;
+})
+
+console.log(areAllNumsEven);
 
 if (typeof describe === 'function') {
 
