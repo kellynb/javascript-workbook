@@ -27,16 +27,24 @@ const rl = readline.createInterface({
 
 const vowels = ['a', 'e', 'i','o', 'u'];
 
+const firstLetterVowelWord = (scrubWord, evaluateWord) => {
+  if (vowels.includes(evaluateWord[0])) {
+    return scrubWord + "yay";
+  }
+}
+
+const firstLetterConstWord = (evaluateWord, findFirstVowel) => {
+  const vowelIndex = evaluateWord.indexOf(findFirstVowel);
+  const constOnly = evaluateWord.slice(0, vowelIndex);
+  const restOfWord = evaluateWord.slice(vowelIndex);
+  const fullNewWord = restOfWord.concat(constOnly);
+  return fullNewWord.join('') + 'ay';
+};
+
 function pigLatin(word) {
   const trimedWord = word.trim();
   const scrubWord = trimedWord.toLowerCase();
   const evaluateWord = scrubWord.split('');
-
-  const firstLetterVowelWord = () => {
-    if (vowels.includes(evaluateWord[0])) {
-      return scrubWord + "yay";
-    }
-  }
 
   const noVowelInWord = evaluateWord.every((letter) => {
     return !vowels.includes(letter);
@@ -46,18 +54,10 @@ function pigLatin(word) {
     return vowels.includes(vowel);
   })
 
-  const firstLetterConstWord = (findFirstVowel) => {
-    const vowelIndex = evaluateWord.indexOf(findFirstVowel);
-    const constOnly = evaluateWord.slice(0, vowelIndex);
-    const restOfWord = evaluateWord.slice(vowelIndex);
-    const fullNewWord = restOfWord.concat(constOnly);
-    return fullNewWord.join('') + 'ay';
-  };
-
   if (noVowelInWord) {
     return scrubWord + 'ay';
   } else {
-    return firstLetterVowelWord() || firstLetterConstWord(findFirstVowel);
+    return firstLetterVowelWord(scrubWord, evaluateWord) || firstLetterConstWord(evaluateWord, findFirstVowel);
   }
 
 }
