@@ -44,7 +44,7 @@ const movePiece = (currentLocation, endLocation) => {
 // function that puts all values in array a
 const resetGame = (endLocation) => {
   const moveArray = endLocation.splice(0,4);
-  stacks['a'] = moveArray;
+  stacks.a = moveArray;
 }
 
 // sees if all values are in stack c. Returns true or false
