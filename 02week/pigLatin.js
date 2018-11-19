@@ -18,8 +18,6 @@ const rl = readline.createInterface({
 // - Add consonants to end of word
 // - return word
 
-
-
 // arrary of vowels
 const vowels = ['a', 'e', 'i','o', 'u'];
 
@@ -57,13 +55,12 @@ function pigLatin(word) {
   const findFirstVowel = evaluateWord.find((vowel) => {
     return vowels.includes(vowel);
   })
-
-  if (noVowelInWord) {
+  // gameplay
+   if (noVowelInWord) {
     return scrubWord + 'ay';
   } else {
     return firstLetterVowelWord(scrubWord, evaluateWord) || firstLetterConstWord(evaluateWord, findFirstVowel);
   }
-
 }
 
 
