@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-
+// forEach callback
 function forEach(arr, callback) {
   for (let i=0; i<arr.length; i++) {
     const count = callback(i);
@@ -16,6 +16,7 @@ function forEach(arr, callback) {
 
   console.log(newForEach);
 
+// map callback
 function map(arr, callback) {
     const newArr = [];
     for(let i = 0 ; i< arr.length ; i++ ){
@@ -29,7 +30,7 @@ const nameArr = ["Katie","Christ","Wilson","Kellyn","Bj","Birdman"];
 const nameArrUpperCase = map(nameArr, function(str1) {return str1.toLowerCase();})
 console.log(nameArrUpperCase);
 
-
+// filter callback
 function filter(arr, callback) {
   const newArr = [];
   for(let i=0; i<arr.length; i++) {
@@ -49,6 +50,7 @@ const isDivisibleByTwo = filter(manyNumbers, (number) => {
 
 console.log(isDivisibleByTwo);
 
+//  some callback
 function some(arr, callback) {
   let count = 0;
 
@@ -73,6 +75,7 @@ const areNumsEven = some(arrNums, numbers => {
 
 console.log(areNumsEven);
 
+//  every callback
 function every(arr, callback) {
   let count = 0;
 
